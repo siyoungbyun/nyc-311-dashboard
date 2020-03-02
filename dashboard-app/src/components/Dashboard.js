@@ -1,5 +1,6 @@
 import React from "react";
 import { Row } from "antd";
+import Select from 'react-select';
 
 const options = [
   { value: 'Stanford University', label: 'Stanford' }
@@ -15,7 +16,7 @@ const field = ({ options }) => (
 );
 
 const Dashboard = ({ children }) => (
-  
+
   <Row
     type="flex"
     justify="space-around"

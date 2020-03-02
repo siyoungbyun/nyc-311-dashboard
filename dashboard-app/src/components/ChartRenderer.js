@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import { useCubeQuery } from "@cubejs-client/react";
 import { Spin, Row, Col, Statistic, Table } from "antd";
 import { Line, Bar, Pie } from "react-chartjs-2";
-const COLORS_SERIES = ["#FF6492", "#141446", "#7A77FF"];
+const COLORS_SERIES = ["#ffa600", "#ff7c43", "#f95d6a", "#d45087", "#a05195", "#665191", "#2f4b7c", "#003f5c"];
 const TypeToChartComponent = {
-  line: ({ resultSet }) => {
+  main_line: ({ resultSet }) => {
     const data = {
       labels: resultSet.categories().map(c => c.category),
       datasets: resultSet.series().map((s, index) => ({
-        label: s.title,
+        label: 'The number of 311 requests',
         data: s.series.map(r => r.value),
         borderColor: COLORS_SERIES[index],
         fill: false

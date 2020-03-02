@@ -3,8 +3,7 @@ import { Col } from "antd";
 import ChartRenderer from "../components/ChartRenderer";
 import Dashboard from "../components/Dashboard";
 import DashboardItem from "../components/DashboardItem";
-import Select from 'react-select';
-// import 'react-select/dist/react-select.css';
+import Select from "react-select"; // import 'react-select/dist/react-select.css';
 
 const DashboardItems = [
   {
@@ -16,9 +15,7 @@ const DashboardItems = [
           {
             dimension: "ServiceRequest311.city",
             operator: "contains",
-            values: [
-              "New"
-            ]
+            values: ["New"]
           }
         ],
         measures: ["ServiceRequest311.count"],
@@ -29,15 +26,25 @@ const DashboardItems = [
           }
         ]
       },
-      chartType: "line"
+      chartType: "main_line"
+    }
+  },
+  {
+    id: 1,
+    name: "Proportion of Request Status",
+    vizState: {
+      query: {
+        filters: [],
+        measures: ["ServiceRequest311.count"],
+        timeDimensions: [],
+        dimensions: ["ServiceRequest311.status"]
+      },
+      chartType: "pie"
     }
   }
 ];
 
-
-
 const DashboardPage = () => {
-
   const dashboardItem = item => (
     <Col
       span={24}
@@ -65,7 +72,6 @@ const DashboardPage = () => {
       </h2>
     </div>
   );
-
 
   return DashboardItems.length ? (
     <Dashboard dashboardItems={DashboardItems}>
