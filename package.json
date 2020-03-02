@@ -1,0 +1,14 @@
+{
+  "name": "dashboard-backend",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js",
+    "heroku-postbuild": "cd dashboard-app && npm install && npm run build"
+  },
+  "dependencies": {
+    "@cubejs-backend/postgres-driver": "^0.18.2",
+    "@cubejs-backend/server": "^0.18.2"
+  }
+}
