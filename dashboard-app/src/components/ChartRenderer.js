@@ -15,6 +15,7 @@ const TypeToChartComponent = {
         fill: false
       }))
     };
+    console.log(resultSet.loadResponse.query.timeDimensions["0"].granularity);
     const options = {
       scales: {
         xAxes: [{
@@ -22,7 +23,7 @@ const TypeToChartComponent = {
           type: 'time',
           time: {
             tooltipFormat: 'll',
-            unit: 'day'
+            unit: resultSet.loadResponse.query.timeDimensions["0"].granularity
           }
         }]
     }
@@ -113,14 +114,16 @@ const TypeToMemoChartComponent = Object.keys(TypeToChartComponent)
   }))
   .reduce((a, b) => ({ ...a, ...b }));
 
-const renderChart = Component => ({ resultSet, error }) =>
-  (resultSet && <Component resultSet={resultSet} />) ||
+const renderChart = (Component, options = {}) => ({ resultSet, error }) =>
+  (resultSet && <Component resultSet={resultSet} {...options} />) ||
   (error && error.toString()) || <Spin />;
 
 const ChartRenderer = ({ vizState }) => {
   const { query, chartType } = vizState;
   const component = TypeToMemoChartComponent[chartType];
   const renderProps = useCubeQuery(query);
+  // console.log(renderProps);
+  // console.log(renderChart(component)(renderProps));
   return component && renderChart(component)(renderProps);
 };
 
