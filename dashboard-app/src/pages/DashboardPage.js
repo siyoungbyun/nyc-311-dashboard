@@ -1,5 +1,5 @@
 import React from "react";
-import { Col } from "antd";
+import { Row } from "antd";
 import ChartRenderer from "../components/ChartRenderer";
 import Dashboard from "../components/Dashboard";
 import DashboardItem from "../components/DashboardItem";
@@ -11,12 +11,32 @@ function defaultDate(dateRange) {
   return dateRange;
 }
 
+function defaultComplaintType(complaintType) {
+  if (complaintType.value == "All") {
+    var filter = [];
+  }
+  else {
+    var filter = [
+      {
+        dimension: "ServiceRequest311.complaintType",
+        operator: "contains",
+        values: [
+          complaintType.value
+        ]
+      }
+    ];
+  }
+  console.log(filter);
+  return filter;
+}
+
 class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dateRange: ["2019-12-31", "2020-02-24"],
-      granularity: {value: "day"}
+      granularity: {value: "day"},
+      complaintType: {value: "All"}
     };
   }
   render() {
@@ -32,8 +52,13 @@ class DashboardPage extends React.Component {
             granularity: value
           })
         }
+        onTypeChange={cType =>
+          this.setState({
+            complaintType: cType
+          })
+        }
       >
-        <Col
+        <Row
           span={24}
           lg={12}
           key={0}
@@ -41,10 +66,39 @@ class DashboardPage extends React.Component {
             marginBottom: "24px"
           }}
         >
+          <DashboardItem title={"The Heatmap of NYC 311 Service Requests"}>
+            <ChartRenderer vizState={
+              {query: {
+                filters: [
+                  {
+                    dimension: "ServiceRequest311.complaintType",
+                    operator: "contains",
+                    values: [
+                      "Noise - Residential"
+                    ]
+                  }
+                ],
+                limit: 50000,
+                measures: ["ServiceRequest311.count"],
+                dimensions: ["ServiceRequest311.latitude", "ServiceRequest311.longitude"]
+              },
+              chartType: "map"}
+            } />
+          </DashboardItem>
+        </Row>
+        <Row
+          span={24}
+          lg={12}
+          key={1}
+          style={{
+            marginBottom: "24px"
+          }}
+        >
           <DashboardItem title={"The Number of 311 Service Requests"}>
             <ChartRenderer vizState={
               {query: {
-                filters: [],
+                filters: defaultComplaintType(this.state.complaintType),
+                limit: 50000,
                 measures: ["ServiceRequest311.count"],
                 timeDimensions: [
                   {
@@ -57,8 +111,8 @@ class DashboardPage extends React.Component {
               chartType: "main_line"}
             } />
           </DashboardItem>
-        </Col>
-        <Col
+        </Row>
+        <Row
           span={24}
           lg={12}
           key={1}
@@ -69,7 +123,8 @@ class DashboardPage extends React.Component {
           <DashboardItem title={"Proportion of Request Status"}>
             <ChartRenderer vizState={
               {query: {
-                filters: [],
+                filters: defaultComplaintType(this.state.complaintType),
+                limit: 50000,
                 measures: ["ServiceRequest311.count"],
                 timeDimensions: [
                     {
@@ -82,7 +137,7 @@ class DashboardPage extends React.Component {
               chartType: "pie"}
             } />
           </DashboardItem>
-        </Col>
+        </Row>
       </Dashboard>);
   }}
 

@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node index.js",
-    "start": "node index.js",
-    "heroku-postbuild": "cd dashboard-app && npm install && npm run build"
+    "start": "node index.js"
   },
   "dependencies": {
     "@cubejs-backend/postgres-driver": "^0.18.2",

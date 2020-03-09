@@ -3,7 +3,48 @@ import PropTypes from "prop-types";
 import { useCubeQuery } from "@cubejs-client/react";
 import { Spin, Row, Col, Statistic, Table } from "antd";
 import { Line, Bar, Pie } from "react-chartjs-2";
+
+import Mapbox from "../components/Map";
 const COLORS_SERIES = ["#ffa600", "#ff7c43", "#f95d6a", "#d45087", "#a05195", "#665191", "#2f4b7c", "#003f5c"];
+
+const makeGeoJSON = (data) => {
+  return {
+    type: 'FeatureCollection',
+    features: data.map(feature => {
+      return {
+        "type": "Feature",
+        "properties": {
+          "occurence": feature.occurence
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [feature.longitude, feature.latitude]
+        }
+      }
+    })
+  }
+};
+
+function createCoordinateData(data) {
+  var results = [];
+  var uid = 0;
+  for (var index = 0; index < data.datasets["0"].data.length; index++) {
+    var occurence = data.datasets["0"].data[index]; 
+    var location = data.labels[index].split(", ");
+    var lat = location[0];
+    var long = location[1];
+    if (lat !== "[Empty string]" && long !== "[Empty string]") {
+      var row = {
+            occurence: occurence,
+            latitude: Number(lat),
+            longitude: Number(long)
+          };
+      results.push(row)
+    }
+  }
+  return results;
+}
+
 const TypeToChartComponent = {
   main_line: ({ resultSet }) => {
     const data = {
@@ -15,11 +56,9 @@ const TypeToChartComponent = {
         fill: false
       }))
     };
-    console.log(resultSet.loadResponse.query.timeDimensions["0"].granularity);
     const options = {
       scales: {
         xAxes: [{
-          // ticks: {maxTicksLimit: 10},
           type: 'time',
           time: {
             tooltipFormat: 'll',
@@ -30,6 +69,18 @@ const TypeToChartComponent = {
     };
     return <Line data={data} options={options} />;
   },
+  map: ({ resultSet }) => {
+    const data = {
+      labels: resultSet.categories().map(c => c.category),
+      datasets: resultSet.series().map((s, index) => ({
+        label: 'The number of 311 requests',
+        data: s.series.map(r => r.value),
+        borderColor: COLORS_SERIES[index],
+        fill: false
+      }))
+    };
+    return <Mapbox data={makeGeoJSON(createCoordinateData(data))}></Mapbox>;
+  },  
   bar: ({ resultSet }) => {
     const data = {
       labels: resultSet.categories().map(c => c.category),
@@ -122,8 +173,6 @@ const ChartRenderer = ({ vizState }) => {
   const { query, chartType } = vizState;
   const component = TypeToMemoChartComponent[chartType];
   const renderProps = useCubeQuery(query);
-  // console.log(renderProps);
-  // console.log(renderChart(component)(renderProps));
   return component && renderChart(component)(renderProps);
 };
 

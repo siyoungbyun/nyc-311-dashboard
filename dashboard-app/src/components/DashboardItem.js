@@ -5,7 +5,7 @@ const DashboardItem = ({ children, title }) => (
   <Card
     title={title}
     style={{
-      height: "100%",
+      height: "70%",
       width: "100%"
     }}
   >
