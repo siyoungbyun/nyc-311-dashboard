@@ -1,2 +1,3 @@
 .env
-dashboard-app/node_modules/.cache
+dashboard-app/node_modules/
+./node_modules
