@@ -1,3 +1,5 @@
 .env
 dashboard-app/node_modules/
 ./node_modules
+dashboard-app/build
+node_modules/
