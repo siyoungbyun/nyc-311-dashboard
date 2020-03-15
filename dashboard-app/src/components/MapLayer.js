@@ -2,6 +2,7 @@ const MAX_ZOOM_LEVEL = 15;
 
 export const heatmapLayer = {
   maxzoom: MAX_ZOOM_LEVEL,
+  minzoom: 5,
   type: 'heatmap',
   paint: {
     // Increase the heatmap weight based on frequency and property magnitude

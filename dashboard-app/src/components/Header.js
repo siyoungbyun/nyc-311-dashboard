@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { Layout, Menu, Button, Divider } from "antd";
+import { Layout, Menu } from "antd";
 import { GithubOutlined, DatabaseOutlined } from '@ant-design/icons';
 
 

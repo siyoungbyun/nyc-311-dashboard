@@ -5,9 +5,10 @@ const DashboardItem = ({ children, title }) => (
   <Card
     title={title}
     style={{
-      height: "70%",
       width: "100%"
     }}
+    bodyStyle={{
+      padding: "10px"}}
   >
     {children}
   </Card>

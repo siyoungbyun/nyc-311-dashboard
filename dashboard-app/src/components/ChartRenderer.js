@@ -27,7 +27,6 @@ const makeGeoJSON = (data) => {
 
 function createCoordinateData(data) {
   var results = [];
-  var uid = 0;
   for (var index = 0; index < data.datasets["0"].data.length; index++) {
     var occurence = data.datasets["0"].data[index]; 
     var location = data.labels[index].split(", ");
