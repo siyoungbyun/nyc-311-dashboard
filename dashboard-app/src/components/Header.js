@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button, Divider } from "antd";
+import { GithubOutlined } from '@ant-design/icons';
+
 
 const Header = ({ location }) => (
   <Layout.Header
@@ -37,6 +39,12 @@ const Header = ({ location }) => (
     >
       <Menu.Item key="/">
         <Link to="/">Dashboard</Link>
+      </Menu.Item>
+      <Menu.Item key="github">
+          <a href="https://github.com/siyoungbyun/nyc-311-dashboard" target="_blank" rel="noopener noreferrer">
+            <GithubOutlined />
+            { " GitHub" }
+          </a>
       </Menu.Item>
     </Menu>
   </Layout.Header>
