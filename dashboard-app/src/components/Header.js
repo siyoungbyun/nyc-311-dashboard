@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import { Layout, Menu, Button, Divider } from "antd";
-import { GithubOutlined } from '@ant-design/icons';
+import { GithubOutlined, DatabaseOutlined } from '@ant-design/icons';
 
 
 const Header = ({ location }) => (
@@ -37,13 +37,16 @@ const Header = ({ location }) => (
         lineHeight: "64px"
       }}
     >
-      <Menu.Item key="/">
-        <Link to="/">Dashboard</Link>
-      </Menu.Item>
       <Menu.Item key="github">
           <a href="https://github.com/siyoungbyun/nyc-311-dashboard" target="_blank" rel="noopener noreferrer">
             <GithubOutlined />
             { " GitHub" }
+          </a>
+      </Menu.Item>
+      <Menu.Item key="dataSource">
+          <a href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9" target="_blank" rel="noopener noreferrer">
+            <DatabaseOutlined />
+            { " Data Source" }
           </a>
       </Menu.Item>
     </Menu>
