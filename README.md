@@ -1,9 +1,15 @@
 # Dashboard for NYC 311 Data
 ## Si Young Byun
 
-This is a dashboard for [NYC 311 data](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9) built in `React`, `Mapbox` and `PostgreSQL`.
+This is a dashboard for [NYC 311 data](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9) built in `React`, `Mapbox` and `PostgreSQL` as a final project for *CAPP 30239 - Data Visualization for Public Policy*.
+
+For the best performance, set the browser's width to __1680px__.
 
 ## Examples
+
+![Default Screen](img/example-1.png)
+
+![Example Filters](img/example-2.png)
 
 ## Built With
 
