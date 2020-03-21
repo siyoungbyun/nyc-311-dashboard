@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import "./body.css";
 import "antd/dist/antd.css";
@@ -8,9 +7,9 @@ import cubejs from "@cubejs-client/core";
 import { CubeProvider } from "@cubejs-client/react";
 import Header from "./components/Header";
 import WebSocketTransport from "@cubejs-client/ws-transport";
-const API_URL = "MY_API_URL";
+const API_URL = "";
 const CUBEJS_TOKEN =
-  "CUBEJS_TOKEN";
+  "";
 const cubejsApi = cubejs({
   transport: new WebSocketTransport({
     authorization: CUBEJS_TOKEN,

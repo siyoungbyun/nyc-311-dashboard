@@ -14,10 +14,10 @@ function defaultDate(dateRange) {
 
 function defaultComplaintType(complaintType) {
   if (complaintType.value === "All") {
-    var chartFilter = [];
+    var cFilter = [];
   }
   else {
-    var chartFilter = [
+    var cFilter = [
       {
         dimension: "ServiceRequest311.complaintType",
         operator: "equals",
@@ -27,7 +27,7 @@ function defaultComplaintType(complaintType) {
       }
     ];
   }
-  return chartFilter;
+  return cFilter;
 }
 
 function defaultStatus(status) {
@@ -35,9 +35,9 @@ function defaultStatus(status) {
     var dimensions = [];
   }
   else {
-    var dimensions = ["ServiceRequest311.status"];
+    var dims = ["ServiceRequest311.status"];
   }
-  return dimensions;
+  return dims;
 }
 
 class DashboardPage extends React.Component {
