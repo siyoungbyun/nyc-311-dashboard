@@ -7,9 +7,9 @@ For the best performance, set the browser's width to __1680px__.
 
 ## Examples
 
-![Default Screen](img/example-1.png)
+![Default Screen](dashboard-app/img/example-1.png)
 
-![Example Filters](img/example-2.png)
+![Example Filters](dashboard-app/img/example-2.png)
 
 ## Built With
 
@@ -21,3 +21,7 @@ For the best performance, set the browser's width to __1680px__.
 ## Author
 
 * **Si Young Byun** - [GitHub](https://github.com/siyoungbyun)
+
+## Acknowledgments
+
+* Andrew McNutt and amazing TAs with awesome feedback and guide.
