@@ -36,3 +36,56 @@
     transform: rotate(360deg);
   }
 }
+
+.inst_title {
+  margin-bottom: 1px;
+}
+
+.instructions {
+  margin-bottom: 4px;
+}
+
+.row {
+  height: 12px;
+  width: 100%;
+}
+
+.colors {
+  background: linear-gradient(to right,rgb(103,169,207), rgb(209,229,240), rgb(253,219,199), rgb(239,138,98), rgb(255,201,101));
+  margin-bottom: 5px;
+}
+
+.row_labels {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.label {
+  width: 15%;
+  display: inline-block;
+  text-align: left;
+}
+
+h1 {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+h2 {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #2dc4b2;
+}
+
+#console {
+  position: absolute;
+  width: 240px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: white;
+}

@@ -4,6 +4,7 @@ import ChartRenderer from "../components/ChartRenderer";
 import Dashboard from "../components/Dashboard";
 import DashboardItem from "../components/DashboardItem";
 
+//Dynamic filters adapted from https://github.com/cube-js/cube.js/tree/master/examples/external-rollups
 function defaultDate(dateRange) {
   if (JSON.stringify(dateRange) === JSON.stringify(["", ""])) {
     dateRange = ["2019-12-31", "2020-02-24"];
@@ -19,7 +20,7 @@ function defaultComplaintType(complaintType) {
     var chartFilter = [
       {
         dimension: "ServiceRequest311.complaintType",
-        operator: "contains",
+        operator: "equals",
         values: [
           complaintType.value
         ]
@@ -29,13 +30,24 @@ function defaultComplaintType(complaintType) {
   return chartFilter;
 }
 
+function defaultStatus(status) {
+  if (status.target.value === "all") {
+    var dimensions = [];
+  }
+  else {
+    var dimensions = ["ServiceRequest311.status"];
+  }
+  return dimensions;
+}
+
 class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dateRange: ["2019-12-31", "2020-02-24"],
       granularity: {value: "day"},
-      complaintType: {value: "All"}
+      complaintType: {value: "All"},
+      status: { target: {value: "all"} }
     };
   }
   render() {
@@ -56,16 +68,21 @@ class DashboardPage extends React.Component {
             complaintType: cType
           })
         }
+        onStatusChange={stat =>
+          this.setState({
+            status: stat
+          })
+        }
       > 
         <Col
           span={12}
           type="flex"
           justify="space-around"
           align="top"
-          gutter={24}
+          gutter={16}
           style={{
-            padding: "12px 12px 0 12px",
-            margin: "8px 0 0 0"
+            padding: "8px 8px 0 8px",
+            margin: "4px 0 0 0"
           }}
         >
           <Row
@@ -75,22 +92,22 @@ class DashboardPage extends React.Component {
             style={{
               marginBottom: "24px"
             }}
+            type="flex"
+            align="middle"
           >
             <DashboardItem title={"The Heatmap of NYC 311 Service Requests"}>
               <ChartRenderer vizState={
                 {query: {
-                  filters: [
-                    {
-                      dimension: "ServiceRequest311.complaintType",
-                      operator: "contains",
-                      values: [
-                        "Noise - Residential"
-                      ]
-                    }
-                  ],
-                  limit: 50000,
+                  filters: defaultComplaintType(this.state.complaintType),
+                  limit: 20000,
                   measures: ["ServiceRequest311.count"],
-                  dimensions: ["ServiceRequest311.latitude", "ServiceRequest311.longitude"]
+                  dimensions: ["ServiceRequest311.latitude", "ServiceRequest311.longitude"],
+                  timeDimensions: [
+                    {
+                      dimension: "ServiceRequest311.createdDate",
+                      dateRange: defaultDate(this.state.dateRange)
+                    }
+                  ]
                 },
                 chartType: "map"}
               } />
@@ -102,10 +119,9 @@ class DashboardPage extends React.Component {
           type="flex"
           justify="space-around"
           align="top"
-          // gutter={24}
           style={{
-            padding: "12px 12px 0 12px",
-            margin: "8px 0 0 0"
+            padding: "8px 8px 0 8px",
+            margin: "4px 0 0 0"
           }}
         >
           <Row
@@ -122,6 +138,7 @@ class DashboardPage extends React.Component {
                   filters: defaultComplaintType(this.state.complaintType),
                   limit: 50000,
                   measures: ["ServiceRequest311.count"],
+                  dimensions: defaultStatus(this.state.status),
                   timeDimensions: [
                     {
                       dimension: "ServiceRequest311.createdDate",
@@ -142,27 +159,26 @@ class DashboardPage extends React.Component {
               marginBottom: "24px"
             }}
           >
-            <DashboardItem title={"Proportion of Request Status"}>
+            <DashboardItem title={"The Number of 311 Service Requests by Borough"}>
               <ChartRenderer vizState={
                 {query: {
                   filters: defaultComplaintType(this.state.complaintType),
                   limit: 50000,
                   measures: ["ServiceRequest311.count"],
+                  dimensions: ["ServiceRequest311.borough"],
                   timeDimensions: [
                       {
                         dimension: "ServiceRequest311.createdDate",
                         dateRange: defaultDate(this.state.dateRange)
                       }
-                  ],
-                  dimensions: ["ServiceRequest311.status"]
+                  ]
                 },
-                chartType: "pie"}
+                chartType: "bar"}
               } />
             </DashboardItem>
           </Row>
         </Col>
       </Dashboard>);
   }}
-
 
 export default DashboardPage;

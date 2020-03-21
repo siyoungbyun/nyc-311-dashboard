@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useCubeQuery } from "@cubejs-client/react";
 import { Spin, Row, Col, Statistic, Table } from "antd";
-import { Line, Bar, Pie } from "react-chartjs-2";
-
+import { Line, HorizontalBar, Pie } from "react-chartjs-2";
 import Mapbox from "../components/Map";
-const COLORS_SERIES = ["#ffa600", "#ff7c43", "#f95d6a", "#d45087", "#a05195", "#665191", "#2f4b7c", "#003f5c"];
 
+const COLORS_SERIES = ['#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#CFECF9', '#7F7F7F', '#BCBD22', '#17BECF'];
+
+// Creating geojson from coordinates: https://stackoverflow.com/questions/56879038/how-to-pass-an-array-of-coordinates-to-react-map-gl-heatmap-layer
 const makeGeoJSON = (data) => {
   return {
     type: 'FeatureCollection',
@@ -49,7 +50,7 @@ const TypeToChartComponent = {
     const data = {
       labels: resultSet.categories().map(c => c.category),
       datasets: resultSet.series().map((s, index) => ({
-        label: 'The number of 311 requests',
+        label: s.title.split(",")[0],
         data: s.series.map(r => r.value),
         borderColor: COLORS_SERIES[index],
         fill: false
@@ -72,10 +73,7 @@ const TypeToChartComponent = {
     const data = {
       labels: resultSet.categories().map(c => c.category),
       datasets: resultSet.series().map((s, index) => ({
-        label: 'The number of 311 requests',
-        data: s.series.map(r => r.value),
-        borderColor: COLORS_SERIES[index],
-        fill: false
+        data: s.series.map(r => r.value)
       }))
     };
     return <Mapbox data={makeGeoJSON(createCoordinateData(data))}></Mapbox>;
@@ -84,22 +82,26 @@ const TypeToChartComponent = {
     const data = {
       labels: resultSet.categories().map(c => c.category),
       datasets: resultSet.series().map((s, index) => ({
-        label: s.title,
+        label: s.title.split(",")[0],
         data: s.series.map(r => r.value),
-        backgroundColor: COLORS_SERIES[index],
-        fill: false
+        backgroundColor: ['#CAF270', '#73D487', '#30B096', '#288993', '#40607A', '#453B52']
+        // fill: false
       }))
     };
     const options = {
+      legend: {
+        display: false
+      },
       scales: {
-        xAxes: [
-          {
-            stacked: true
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: "The Number of 311 Requests"
           }
-        ]
+        }]
       }
     };
-    return <Bar data={data} options={options} />;
+    return < HorizontalBar data={data} options={options} />;
   },
   area: ({ resultSet }) => {
     const data = {

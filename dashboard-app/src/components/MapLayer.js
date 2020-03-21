@@ -1,3 +1,5 @@
+// Template from https://github.com/uber/react-map-gl/tree/5.2-release/examples/heatmap
+
 const MAX_ZOOM_LEVEL = 15;
 
 export const heatmapLayer = {
@@ -6,7 +8,7 @@ export const heatmapLayer = {
   type: 'heatmap',
   paint: {
     // Increase the heatmap weight based on frequency and property magnitude
-    'heatmap-weight': ['interpolate', ['linear'], ['get', 'occurence'], 1, 0, 100, 1],
+    'heatmap-weight': ['interpolate', ['linear'], ['get', 'occurence'], 1, 0, 200, 1],
     // Increase the heatmap color weight weight by zoom level
     // heatmap-intensity is a multiplier on top of heatmap-weight
     'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 11, 1, MAX_ZOOM_LEVEL, 3],
