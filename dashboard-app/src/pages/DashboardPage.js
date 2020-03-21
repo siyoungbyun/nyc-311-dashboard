@@ -32,7 +32,7 @@ function defaultComplaintType(complaintType) {
 
 function defaultStatus(status) {
   if (status.target.value === "all") {
-    var dimensions = [];
+    var dims = [];
   }
   else {
     var dims = ["ServiceRequest311.status"];
