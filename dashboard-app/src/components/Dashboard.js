@@ -28,7 +28,7 @@ const Dashboard = ({ children, onDateRangeChange, onGranularityChange, onTypeCha
           padding: "10px"}}
       >
         <div class="inst_title"><strong>Heatmap</strong></div>
-        <div class="instructions"><u>Grabbing</u> and <u>zooming</u> is supported.</div>
+        <div class="instructions"><u>Grabbing</u> and <u>zooming</u> is supported. It will automatically updated based on the filters.</div>
         <div class="inst_title"><strong>Line Chart</strong></div>
         <div class="instructions">Click an item in the legend to <u>exclude</u> it from the chart!</div>
         <div class="inst_title"><strong>Filters</strong></div>
