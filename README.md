@@ -7,6 +7,8 @@ For the best performance, set the browser's width to __1680px__.
 
 ## Examples
 
+Although this dashboard was initially hosted on the web with __DigitalOcean__, it was taken down due to the cost of maintainence. However, there are some screenshots of the dashboard. And anyone can clone this repo and host it.
+
 ![Default Screen](dashboard-app/img/example-1.png)
 
 ![Example Filters](dashboard-app/img/example-2.png)
